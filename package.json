@@ -1,0 +1,27 @@
+{
+  "name": "saran-va-portfolio",
+  "version": "1.0.0",
+  "description": "SARAN V A's Portfolio Website - Full Stack MERN Developer",
+  "main": "src/index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview --port 3000"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "keywords": [
+    "portfolio",
+    "full-stack",
+    "mern-developer",
+    "web-development",
+    "javascript",
+    "react",
+    "nodejs",
+    "mongodb"
+  ],
+  "author": "SARAN V A",
+  "license": "MIT"
+}
