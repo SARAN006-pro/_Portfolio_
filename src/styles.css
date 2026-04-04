@@ -470,17 +470,12 @@ section, nav, footer {
 
 .hero-subtitle::after {
     content: '|';
+    margin-left: 5px;
     animation: blink 1s infinite;
-    margin-left: 2px;
 }
 
 @keyframes blink {
-    0%, 50% {
-        opacity: 1;
-    }
-    51%, 100% {
-        opacity: 0;
-    }
+    50% { opacity: 0; }
 }
 
 .hero-description {
@@ -876,10 +871,6 @@ section, nav, footer {
     stroke: var(--primary-accent);
     stroke-width: 2.5;
     transition: all 0.3s ease;
-}
-
-.central-api-group {
-    /* Group container - no animation */
 }
 
 .central-node {
@@ -2414,4 +2405,369 @@ section {
 
 .glow-effect {
     border-radius: 12px;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--card-bg);
+    border: 2px solid var(--primary-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    background: var(--primary-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(96, 165, 250, 0.3);
+}
+
+.scroll-to-top svg {
+    width: 24px;
+    height: 24px;
+    color: var(--primary-accent);
+    transition: color 0.3s ease;
+}
+
+.scroll-to-top:hover svg {
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .scroll-to-top svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* =============================================
+   NEW PROJECTS SECTION
+   ============================================= */
+
+.projects-new {
+    position: relative;
+    padding: 8rem 0;
+    background: transparent;
+    color: var(--text-color);
+}
+
+.projects-new__header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.projects-new__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.25rem;
+}
+
+.projects-new__divider {
+    width: 5rem;
+    height: 4px;
+    background: linear-gradient(to right, #3b82f6, #06b6d4);
+    border-radius: 9999px;
+    margin: 0 auto 1.5rem;
+}
+
+.projects-new__subtitle {
+    color: #94a3b8;
+    font-size: 1.05rem;
+    max-width: 36rem;
+    margin: 0 auto;
+}
+
+/* Cards grid — single column stacked */
+.projects-new__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+/* Individual project card */
+.pcard {
+    position: relative;
+    border-radius: 1rem;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid #1e293b;
+    overflow: hidden;
+    transition: border-color 0.5s ease;
+}
+
+.pcard:hover {
+    border-color: rgba(59, 130, 246, 0.5);
+}
+
+.pcard__inner {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+/* Left column */
+.pcard__visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Gradient thumbnail */
+.pcard__thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.5s ease;
+}
+
+.pcard:hover .pcard__thumb {
+    transform: scale(1.05);
+}
+
+.pcard__thumb--purple { background: linear-gradient(135deg, #a855f7, #ec4899); }
+.pcard__thumb--green  { background: linear-gradient(135deg, #22c55e, #10b981); }
+.pcard__thumb--blue   { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+
+.pcard__thumb-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.2);
+}
+
+.pcard__icon {
+    width: 5rem;
+    height: 5rem;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    stroke-width: 1.5;
+}
+
+.pcard__thumb-glow {
+    position: absolute;
+    border-radius: 9999px;
+    background: rgba(255,255,255,0.1);
+    filter: blur(16px);
+}
+.pcard__thumb-glow--tr { top: 1rem; right: 1rem; width: 5rem; height: 5rem; }
+.pcard__thumb-glow--bl { bottom: 1rem; left: 1rem; width: 8rem; height: 8rem; filter: blur(24px); background: rgba(255,255,255,0.05); }
+
+/* Stats row */
+.pcard__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.pcard__stat {
+    text-align: center;
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.5rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid #1e293b;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.pcard__stat-value {
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 1;
+}
+.pcard__stat-value--blue  { color: #60a5fa; }
+.pcard__stat-value--green { color: #4ade80; }
+.pcard__stat-value--cyan  { color: #22d3ee; }
+
+.pcard__stat-label {
+    color: #64748b;
+    font-size: 0.7rem;
+}
+
+/* Right column */
+.pcard__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.pcard__name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.pcard:hover .pcard__name {
+    color: #60a5fa;
+}
+
+.pcard__desc {
+    color: #cbd5e1;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Tech tags */
+.pcard__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.pcard__tag {
+    padding: 0.4rem 0.9rem;
+    border-radius: 0.5rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid #334155;
+    color: #60a5fa;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: border-color 0.2s ease;
+}
+
+.pcard__tag:hover {
+    border-color: #3b82f6;
+}
+
+/* Action buttons */
+.pcard__links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.pcard__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.pcard__btn--ghost {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid #334155;
+    color: #cbd5e1;
+}
+
+.pcard__btn--ghost:hover {
+    border-color: #3b82f6;
+    color: #fff;
+}
+
+.pcard__btn--primary {
+    background: linear-gradient(to right, #2563eb, #0891b2);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.pcard__btn--primary:hover {
+    background: linear-gradient(to right, #3b82f6, #06b6d4);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    transform: scale(1.05);
+}
+
+/* Hover glow overlay */
+.pcard__glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(59,130,246,0.05), rgba(6,182,212,0.05));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.pcard:hover .pcard__glow {
+    opacity: 1;
+}
+
+/* Footer button */
+.projects-new__footer {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.projects-new__view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    border: 2px solid #334155;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.projects-new__view-all:hover {
+    border-color: #3b82f6;
+    background: rgba(30, 41, 59, 0.5);
+}
+
+.projects-new__view-all svg {
+    transition: transform 0.3s ease;
+}
+
+.projects-new__view-all:hover svg {
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .pcard__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .pcard__thumb {
+        aspect-ratio: 16/7;
+    }
+
+    .pcard__icon {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
 }

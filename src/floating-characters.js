@@ -24,7 +24,7 @@ class FloatingParticles {
         this.particles = [];
         
         // Configuration for subtle effect
-        this.particleCount = 50; // Lightweight - only 50 particles
+        this.particleCount = 60; // +20% from original 50
         this.particleSpeed = 0.3; // Very slow movement
         
         // Bind methods
@@ -53,10 +53,13 @@ class FloatingParticles {
             this.particles.push({
                 x: Math.random() * this.width,
                 y: Math.random() * this.height,
-                size: Math.random() * 2 + 1, // Small particles (1-3px)
+                size: Math.random() * 3 + 2,                          // Depth: 2–5px
                 speedX: (Math.random() - 0.5) * this.particleSpeed,
-                speedY: Math.random() * this.particleSpeed + 0.2, // Gentle downward drift
-                opacity: Math.random() * 0.5 + 0.3, // Subtle opacity (0.3-0.8)
+                speedY: Math.random() * this.particleSpeed * 0.8 + 0.1, // Per-particle speed variation
+                opacity: Math.random() * 0.12 + 0.08,                 // Subtle: 0.08–0.20
+                drift: Math.random() * Math.PI * 2,                   // Sine phase offset
+                driftSpeed: Math.random() * 0.008 + 0.004,            // Sine frequency (slow)
+                driftAmp: Math.random() * 0.25 + 0.1,                 // Horizontal drift amplitude
             });
         }
     }
@@ -64,7 +67,8 @@ class FloatingParticles {
     drawParticles() {
         this.particles.forEach(particle => {
             // Update position
-            particle.x += particle.speedX;
+            particle.drift += particle.driftSpeed;
+            particle.x += particle.speedX + Math.sin(particle.drift) * particle.driftAmp;
             particle.y += particle.speedY;
             
             // Wrap around screen
@@ -78,7 +82,7 @@ class FloatingParticles {
             // Draw particle as soft circle
             this.ctx.beginPath();
             this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-            this.ctx.fillStyle = `rgba(96, 165, 250, ${particle.opacity})`; // Soft blue
+            this.ctx.fillStyle = `rgba(37, 99, 235, ${particle.opacity})`; // Primary blue
             this.ctx.fill();
             
             // Add subtle glow
@@ -86,8 +90,8 @@ class FloatingParticles {
                 particle.x, particle.y, 0,
                 particle.x, particle.y, particle.size * 2
             );
-            gradient.addColorStop(0, `rgba(96, 165, 250, ${particle.opacity * 0.5})`);
-            gradient.addColorStop(1, 'rgba(96, 165, 250, 0)');
+            gradient.addColorStop(0, `rgba(37, 99, 235, ${particle.opacity * 0.5})`);
+            gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
             this.ctx.fillStyle = gradient;
             this.ctx.fill();
         });
