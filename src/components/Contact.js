@@ -1,8 +1,5 @@
 import emailjs from '@emailjs/browser';
 
-// Initialise once — uses env vars, never hardcoded secrets
-emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
-
 export function renderContact() {
   return `
     <section id="contact" class="contact">
@@ -83,6 +80,13 @@ export function renderContact() {
 }
 
 export function initContactForm() {
+  // Credentials hardcoded for reliability — move to env vars after confirming it works
+  const SERVICE_ID  = 'service_hjy3nq9';
+  const TEMPLATE_ID = 'template_b85pnte';
+  const PUBLIC_KEY  = 'CayVo9gsnhKi96tad';
+
+  emailjs.init({ publicKey: PUBLIC_KEY });
+
   const form          = document.getElementById('contact-form');
   const submitBtn     = form.querySelector('.submit-button');
   const buttonText    = submitBtn.querySelector('.button-text');
@@ -182,15 +186,12 @@ export function initContactForm() {
     setLoading(true);
 
     try {
-      await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        form
-      );
+      const result = await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form);
+      console.log('EmailJS success:', result.status, result.text);
       showSuccessToast();
       form.reset();
     } catch (err) {
-      console.error('EmailJS error:', err);
+      console.error('EmailJS FULL error:', JSON.stringify(err), err?.status, err?.text);
       if (err?.status === 400 || err?.status === 401) {
         showToast('Email config error — please contact saran006va@gmail.com directly.', 'error');
       } else {

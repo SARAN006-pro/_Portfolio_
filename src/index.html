@@ -7,34 +7,39 @@
     <meta name="author" content="SARAN V A" />
     <meta name="keywords" content="SARAN V A, Full Stack Developer, MERN Developer, Web Developer, Portfolio, React, Node.js, MongoDB, Express" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://saranvaratharaj.tech/" />
     <meta property="og:title" content="SARAN V A | Full Stack MERN Developer" />
-    <meta property="og:description" content="Full Stack MERN Developer specializing in scalable web applications. Explore my projects and technical skills." />
+    <meta property="og:description" content="Full Stack MERN Developer specializing in scalable web applications." />
     <meta property="og:site_name" content="SARAN V A Portfolio" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://saranvaratharaj.tech/" />
     <meta property="twitter:title" content="SARAN V A | Full Stack MERN Developer" />
-    <meta property="twitter:description" content="Full Stack MERN Developer specializing in scalable web applications. Explore my projects and technical skills." />
+    <meta property="twitter:description" content="Full Stack MERN Developer specializing in scalable web applications." />
 
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://saranvaratharaj.tech/" />
 
     <title>SARAN V A | Portfolio</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
     <link rel="stylesheet" href="./styles.css" />
 
-    <!-- Third-party scripts -->
+    <!-- Lottie (must load before DOM renders lottie-player elements) -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   </head>
   <body>
-    <!-- Mount point -->
+    <!-- Mount point — all HTML injected by main.js -->
     <div id="app"></div>
 
-    <!-- Main app entry point (loader + particles imported inside) -->
+    <!-- Main entry: loader + particles + all sections + contact form -->
     <script type="module" src="./main.js"></script>
   </body>
 </html>
