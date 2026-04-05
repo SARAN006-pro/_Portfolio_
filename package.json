@@ -25,5 +25,8 @@
     "mongodb"
   ],
   "author": "SARAN V A",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1"
+  }
 }

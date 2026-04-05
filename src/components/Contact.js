@@ -1,3 +1,8 @@
+import emailjs from '@emailjs/browser';
+
+// Initialise once — uses env vars, never hardcoded secrets
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+
 export function renderContact() {
   return `
     <section id="contact" class="contact">
@@ -43,17 +48,20 @@ export function renderContact() {
             </div>
           </div>
           <form class="contact-form" id="contact-form">
-            <input type="text" name="from_name" placeholder="Your Name" required/>
-            <input type="email" name="from_email" placeholder="Your Email" required/>
-            <input type="text" name="subject" placeholder="Subject" required/>
-            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <input type="text"  name="from_name"  placeholder="Your Name"    required/>
+            <input type="email" name="from_email" placeholder="Your Email"   required/>
+            <input type="text"  name="subject"    placeholder="Subject"      required/>
+            <textarea           name="message"    placeholder="Your Message" rows="5" required></textarea>
             <button type="submit" class="submit-button">
               <span class="button-text">Send Message</span>
               <span class="button-loading" style="display:none">
                 <svg class="loading-spinner" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.416" stroke-dashoffset="31.416">
-                    <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
-                    <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"
+                    stroke-dasharray="31.416" stroke-dashoffset="31.416">
+                    <animate attributeName="stroke-dasharray" dur="2s"
+                      values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+                    <animate attributeName="stroke-dashoffset" dur="2s"
+                      values="0;-15.708;-31.416" repeatCount="indefinite"/>
                   </circle>
                 </svg>
                 Sending...
@@ -67,7 +75,7 @@ export function renderContact() {
     <div id="success-toast" class="success-toast">
       <svg class="success-tick" viewBox="0 0 52 52">
         <circle class="success-tick-circle" cx="26" cy="26" r="25" fill="none"/>
-        <path class="success-tick-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        <path   class="success-tick-check"  fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
       </svg>
       <p class="success-message">Thanks! I'll get back to you soon.</p>
     </div>
@@ -75,131 +83,130 @@ export function renderContact() {
 }
 
 export function initContactForm() {
-  (function () {
-    emailjs.init({ publicKey: "YOUR_PUBLIC_KEY" });
-  })();
+  const form          = document.getElementById('contact-form');
+  const submitBtn     = form.querySelector('.submit-button');
+  const buttonText    = submitBtn.querySelector('.button-text');
+  const buttonLoading = submitBtn.querySelector('.button-loading');
+  const successToast  = document.getElementById('success-toast');
 
-  class ContactFormHandler {
-    constructor() {
-      this.form = document.getElementById("contact-form");
-      this.submitButton = this.form.querySelector(".submit-button");
-      this.buttonText = this.submitButton.querySelector(".button-text");
-      this.buttonLoading = this.submitButton.querySelector(".button-loading");
-      this.successToast = document.getElementById("success-toast");
-      this.init();
+  // ── Validation helpers ──────────────────────────────────────────
+
+  function validateField(field) {
+    const value = field.value.trim();
+    clearFieldError(field);
+
+    if (field.required && !value) {
+      showFieldError(field, 'This field is required');
+      return false;
     }
-
-    init() {
-      this.form.addEventListener("submit", this.handleSubmit.bind(this));
-      this.form.querySelectorAll("input, textarea").forEach(field => {
-        field.addEventListener("blur", this.validateField.bind(this));
-        field.addEventListener("input", this.clearErrors.bind(this));
-      });
+    if (field.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      showFieldError(field, 'Please enter a valid email address');
+      return false;
     }
+    return true;
+  }
 
-    validateField(e) {
-      const field = e.target;
-      const value = field.value.trim();
-      field.classList.remove("error");
-      if (field.type === "email" && value) {
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          this.showFieldError(field, "Please enter a valid email address");
-          return false;
-        }
-      }
-      if (field.required && !value) {
-        this.showFieldError(field, "This field is required");
-        return false;
-      }
-      return true;
-    }
+  function showFieldError(field, message) {
+    field.classList.add('error');
+    clearFieldError(field); // remove stale error first
+    const div = document.createElement('div');
+    div.className = 'field-error';
+    div.textContent = message;
+    field.insertAdjacentElement('afterend', div);
+  }
 
-    showFieldError(field, message) {
-      field.classList.add("error");
-      const existing = field.parentNode.querySelector(".field-error");
-      if (existing) existing.remove();
-      const errorDiv = document.createElement("div");
-      errorDiv.className = "field-error";
-      errorDiv.textContent = message;
-      field.parentNode.insertBefore(errorDiv, field.nextSibling);
-    }
+  function clearFieldError(field) {
+    field.classList.remove('error');
+    const err = field.parentNode.querySelector('.field-error');
+    if (err) err.remove();
+  }
 
-    clearErrors(e) {
-      const field = e.target;
-      field.classList.remove("error");
-      const errorMsg = field.parentNode.querySelector(".field-error");
-      if (errorMsg) errorMsg.remove();
-    }
+  // ── Loading state ───────────────────────────────────────────────
 
-    async handleSubmit(e) {
-      e.preventDefault();
-      const fields = this.form.querySelectorAll("input, textarea");
-      let isValid = true;
-      fields.forEach(field => { if (!this.validateField({ target: field })) isValid = false; });
-      if (!isValid) { this.showToast("Please fix the errors above", "error"); return; }
-      this.setLoadingState(true);
-      try {
-        const result = await emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this.form);
-        console.log("Email sent successfully:", result);
-        this.showSuccessToast();
-        this.form.reset();
-        this.trackFormSubmission("success");
-      } catch (error) {
-        console.error("Email sending failed:", error);
-        this.handleEmailError(error);
-        this.trackFormSubmission("error", error.message);
-      } finally {
-        this.setLoadingState(false);
-      }
-    }
+  function setLoading(on) {
+    submitBtn.disabled      = on;
+    buttonText.style.display    = on ? 'none'  : 'block';
+    buttonLoading.style.display = on ? 'flex'  : 'none';
+    submitBtn.classList.toggle('loading', on);
+  }
 
-    async handleEmailError(error) {
-      if (error.status === 400 || error.status === 401) {
-        this.showToast("Configuration error. Please contact directly at saran006va@gmail.com", "error");
+  // ── Toast helpers ───────────────────────────────────────────────
+
+  function showSuccessToast() {
+    successToast.classList.add('show');
+    setTimeout(() => successToast.classList.remove('show'), 5000);
+  }
+
+  function showToast(message, type = 'info', clickHandler = null) {
+    const toast = document.createElement('div');
+    toast.className = `custom-toast ${type}`;
+    toast.innerHTML = `
+      <div class="toast-content">
+        <span class="toast-message">${message}</span>
+        ${clickHandler ? '<button class="toast-action">Click here</button>' : ''}
+      </div>`;
+    document.body.appendChild(toast);
+    if (clickHandler) toast.querySelector('.toast-action').addEventListener('click', clickHandler);
+    setTimeout(() => toast.classList.add('show'), 100);
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 7000);
+  }
+
+  // ── Fallback mailto ─────────────────────────────────────────────
+
+  function fallbackMailto() {
+    const data    = new FormData(form);
+    const subject = encodeURIComponent(data.get('subject') || 'Contact from Portfolio');
+    const body    = encodeURIComponent(
+      `Name: ${data.get('from_name')}\nEmail: ${data.get('from_email')}\n\nMessage:\n${data.get('message')}`
+    );
+    showToast(
+      'Having trouble? Click here to open your email client instead.',
+      'warning',
+      () => { window.location.href = `mailto:saran006va@gmail.com?subject=${subject}&body=${body}`; }
+    );
+  }
+
+  // ── Submit handler ──────────────────────────────────────────────
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    // Validate all fields
+    const fields = [...form.querySelectorAll('input, textarea')];
+    const allValid = fields.map(validateField).every(Boolean);
+    if (!allValid) { showToast('Please fix the errors above.', 'error'); return; }
+
+    setLoading(true);
+
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form
+      );
+      showSuccessToast();
+      form.reset();
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      if (err?.status === 400 || err?.status === 401) {
+        showToast('Email config error — please contact saran006va@gmail.com directly.', 'error');
       } else {
-        const formData = new FormData(this.form);
-        const subject = encodeURIComponent(formData.get("subject") || "Contact from Portfolio");
-        const body = encodeURIComponent(`Name: ${formData.get("from_name")}\nEmail: ${formData.get("from_email")}\n\nMessage:\n${formData.get("message")}`);
-        const mailtoLink = `mailto:saran006va@gmail.com?subject=${subject}&body=${body}`;
-        this.showToast("Having trouble sending? Click here to open your email client", "warning", () => { window.location.href = mailtoLink; });
+        fallbackMailto();
       }
-    }
-
-    setLoadingState(loading) {
-      this.submitButton.disabled = loading;
-      if (loading) {
-        this.buttonText.style.display = "none";
-        this.buttonLoading.style.display = "flex";
-        this.submitButton.classList.add("loading");
-      } else {
-        this.buttonText.style.display = "block";
-        this.buttonLoading.style.display = "none";
-        this.submitButton.classList.remove("loading");
-      }
-    }
-
-    showSuccessToast() {
-      this.successToast.classList.add("show");
-      setTimeout(() => this.successToast.classList.remove("show"), 5000);
-    }
-
-    showToast(message, type = "info", clickHandler = null) {
-      const toast = document.createElement("div");
-      toast.className = `custom-toast ${type}`;
-      toast.innerHTML = `<div class="toast-content"><span class="toast-message">${message}</span>${clickHandler ? '<button class="toast-action">Click here</button>' : ""}</div>`;
-      document.body.appendChild(toast);
-      if (clickHandler) toast.querySelector(".toast-action").addEventListener("click", clickHandler);
-      setTimeout(() => toast.classList.add("show"), 100);
-      setTimeout(() => { toast.classList.remove("show"); setTimeout(() => document.body.removeChild(toast), 300); }, 7000);
-    }
-
-    trackFormSubmission(status, error = null) {
-      if (typeof gtag !== "undefined") {
-        gtag("event", "form_submit", { event_category: "Contact", event_label: status, value: status === "success" ? 1 : 0 });
-      }
-      console.log(`Form submission ${status}`, error ? { error } : {});
+    } finally {
+      setLoading(false);
     }
   }
 
-  new ContactFormHandler();
+  // ── Wire up events ──────────────────────────────────────────────
+
+  form.addEventListener('submit', handleSubmit);
+
+  form.querySelectorAll('input, textarea').forEach(field => {
+    field.addEventListener('blur',  () => validateField(field));
+    field.addEventListener('input', () => clearFieldError(field));
+  });
 }
