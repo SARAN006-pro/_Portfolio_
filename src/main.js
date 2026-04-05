@@ -1,3 +1,7 @@
+// Side-effect imports — Vite will bundle these correctly in production
+import './loader.js';
+import './floating-characters.js';
+
 import { renderNav } from './components/Nav.js';
 import { renderHero, initHeroTyping } from './components/Hero.js';
 import { renderAbout } from './components/About.js';

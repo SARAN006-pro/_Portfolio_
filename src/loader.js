@@ -1,19 +1,8 @@
 /**
  * PortfolioLoader — Vanilla JS port of the React "Crystallize → Grid → Dissolve" loader
- * Quantum-Node Array loading screen for Saran V A's portfolio
- *
- * Timeline:
- *   0ms      — screen mounts, grid cells begin staggered fade-in
- *   80ms×n   — letters crystallize in with spring overshoot (staggered)
- *   900ms    — role subtitle fades in
- *   1100ms   — quantum nodes begin sequential charge cycle
- *   1900ms   — all nodes implode (simultaneous)
- *   2000ms   — full dissolve begins (scale + opacity out)
- *   2400ms   — loader removed from DOM
  */
 
 (function () {
-  /* ─── Constants ─────────────────────────────────────────────── */
   const NAME       = 'Saran V A';
   const ROLE       = 'Full Stack · Cloud · AI/NLP';
   const GRID_COLS  = 18;
@@ -460,3 +449,5 @@
     runLoader();
   }
 })();
+
+export { }; // marks this file as an ES module so Vite bundles it correctly

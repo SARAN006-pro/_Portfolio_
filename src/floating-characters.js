@@ -119,3 +119,5 @@ class FloatingParticles {
 window.addEventListener('DOMContentLoaded', () => {
     new FloatingParticles();
 });
+
+export { }; // marks this file as an ES module so Vite bundles it correctly
