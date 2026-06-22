@@ -1,64 +1,69 @@
 import emailjs from '@emailjs/browser';
 
+const githubIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>`;
+const linkedinIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
+const emailIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`;
+
 export function renderContact() {
   return `
     <section id="contact" class="contact">
       <div class="container">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-content">
+        <header class="section-header">
+          <h2 class="section-heading">Get In Touch</h2>
+          <p class="section-subtitle">Interested in working together? Let's connect.</p>
+        </header>
+
+        <div class="contact-grid">
           <div class="contact-info">
-            <div class="cardContainer">
-              <lottie-player
-                src="/animations/Hand tap.json"
-                background="transparent"
-                speed="1"
-                style="width: 100px; height: 100px"
-                loop autoplay
-                class="card-lottie-animation">
-              </lottie-player>
-              <div class="profileDiv">
-                <img src="/images/profile-photo.png" alt="SARAN V A - Full Stack MERN Developer" class="profile-image"/>
+            <div class="contact-card">
+              <div class="contact-avatar">
+                <img src="/images/profile-photo.png" alt="SARAN V A"/>
               </div>
-              <div class="infoDiv">
-                <div class="nameDiv">
-                  <p class="name">SARAN V A</p>
-                  <p class="role">Full Stack MERN Developer</p>
-                </div>
-                <div class="socialDiv">
-                  <a href="https://github.com/SARAN006-pro" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <svg viewBox="0 0 496 512" class="socials github">
-                      <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/>
-                    </svg>
-                  </a>
-                  <a href="https://www.linkedin.com/in/SARAN-VA/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <svg viewBox="0 0 448 512" class="socials linkdin">
-                      <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
-                    </svg>
-                  </a>
-                  <a href="mailto:saran006va@gmail.com" aria-label="Gmail">
-                    <svg viewBox="0 0 512 512" class="socials gmail">
-                      <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/>
-                    </svg>
-                  </a>
-                </div>
+              <h3 class="contact-name">SARAN V A</h3>
+              <p class="contact-role">Backend Developer & AI Engineer</p>
+
+              <div class="contact-links">
+                <a href="https://github.com/SARAN006-pro" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="GitHub">
+                  ${githubIcon}
+                </a>
+                <a href="https://www.linkedin.com/in/SARAN-VA/" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="LinkedIn">
+                  ${linkedinIcon}
+                </a>
+                <a href="mailto:saran006va@gmail.com" class="contact-link" aria-label="Email">
+                  ${emailIcon}
+                </a>
               </div>
             </div>
           </div>
+
           <form class="contact-form" id="contact-form">
-            <input type="text"  name="from_name"  placeholder="Your Name"    required/>
-            <input type="email" name="from_email" placeholder="Your Email"   required/>
-            <input type="text"  name="subject"    placeholder="Subject"      required/>
-            <textarea           name="message"    placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit" class="submit-button">
-              <span class="button-text">Send Message</span>
-              <span class="button-loading" style="display:none">
-                <svg class="loading-spinner" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"
-                    stroke-dasharray="31.416" stroke-dashoffset="31.416">
-                    <animate attributeName="stroke-dasharray" dur="2s"
-                      values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
-                    <animate attributeName="stroke-dashoffset" dur="2s"
-                      values="0;-15.708;-31.416" repeatCount="indefinite"/>
+            <div class="form-group">
+              <label for="from_name" class="form-label">Name</label>
+              <input type="text" id="from_name" name="from_name" class="form-input" placeholder="Your name" required/>
+            </div>
+
+            <div class="form-group">
+              <label for="from_email" class="form-label">Email</label>
+              <input type="email" id="from_email" name="from_email" class="form-input" placeholder="your@email.com" required/>
+            </div>
+
+            <div class="form-group">
+              <label for="subject" class="form-label">Subject</label>
+              <input type="text" id="subject" name="subject" class="form-input" placeholder="What's this about?" required/>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Message</label>
+              <textarea id="message" name="message" class="form-input form-textarea" placeholder="Your message..." rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-loading" style="display:none">
+                <svg class="spinner" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.416" stroke-dashoffset="31.416">
+                    <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+                    <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
                   </circle>
                 </svg>
                 Sending...
@@ -67,33 +72,32 @@ export function renderContact() {
           </form>
         </div>
       </div>
-    </section>
 
-    <div id="success-toast" class="success-toast">
-      <svg class="success-tick" viewBox="0 0 52 52">
-        <circle class="success-tick-circle" cx="26" cy="26" r="25" fill="none"/>
-        <path   class="success-tick-check"  fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-      </svg>
-      <p class="success-message">Thanks! I'll get back to you soon.</p>
-    </div>
+      <div id="success-toast" class="toast">
+        <svg class="toast-icon" viewBox="0 0 52 52">
+          <circle class="toast-circle" cx="26" cy="26" r="25" fill="none"/>
+          <path class="toast-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        <p class="toast-message">Message sent successfully!</p>
+      </div>
+    </section>
   `;
 }
 
 export function initContactForm() {
-  // Credentials hardcoded for reliability — move to env vars after confirming it works
-  const SERVICE_ID  = 'service_hjy3nq9';
+  const SERVICE_ID = 'service_hjy3nq9';
   const TEMPLATE_ID = 'template_b85pnte';
-  const PUBLIC_KEY  = 'CayVo9gsnhKi96tad';
+  const PUBLIC_KEY = 'CayVo9gsnhKi96tad';
 
   emailjs.init({ publicKey: PUBLIC_KEY });
 
-  const form          = document.getElementById('contact-form');
-  const submitBtn     = form.querySelector('.submit-button');
-  const buttonText    = submitBtn.querySelector('.button-text');
-  const buttonLoading = submitBtn.querySelector('.button-loading');
-  const successToast  = document.getElementById('success-toast');
+  const form = document.getElementById('contact-form');
+  if (!form) return;
 
-  // ── Validation helpers ──────────────────────────────────────────
+  const submitBtn = form.querySelector('.submit-btn');
+  const buttonText = submitBtn.querySelector('.btn-text');
+  const buttonLoading = submitBtn.querySelector('.btn-loading');
+  const successToast = document.getElementById('success-toast');
 
   function validateField(field) {
     const value = field.value.trim();
@@ -104,7 +108,7 @@ export function initContactForm() {
       return false;
     }
     if (field.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      showFieldError(field, 'Please enter a valid email address');
+      showFieldError(field, 'Please enter a valid email');
       return false;
     }
     return true;
@@ -112,7 +116,8 @@ export function initContactForm() {
 
   function showFieldError(field, message) {
     field.classList.add('error');
-    clearFieldError(field); // remove stale error first
+    const existing = field.parentNode.querySelector('.field-error');
+    if (existing) existing.remove();
     const div = document.createElement('div');
     div.className = 'field-error';
     div.textContent = message;
@@ -125,89 +130,49 @@ export function initContactForm() {
     if (err) err.remove();
   }
 
-  // ── Loading state ───────────────────────────────────────────────
-
   function setLoading(on) {
-    submitBtn.disabled      = on;
-    buttonText.style.display    = on ? 'none'  : 'block';
-    buttonLoading.style.display = on ? 'flex'  : 'none';
-    submitBtn.classList.toggle('loading', on);
+    submitBtn.disabled = on;
+    buttonText.style.display = on ? 'none' : 'flex';
+    buttonLoading.style.display = on ? 'flex' : 'none';
   }
-
-  // ── Toast helpers ───────────────────────────────────────────────
 
   function showSuccessToast() {
     successToast.classList.add('show');
-    setTimeout(() => successToast.classList.remove('show'), 5000);
+    setTimeout(() => successToast.classList.remove('show'), 4000);
   }
-
-  function showToast(message, type = 'info', clickHandler = null) {
-    const toast = document.createElement('div');
-    toast.className = `custom-toast ${type}`;
-    toast.innerHTML = `
-      <div class="toast-content">
-        <span class="toast-message">${message}</span>
-        ${clickHandler ? '<button class="toast-action">Click here</button>' : ''}
-      </div>`;
-    document.body.appendChild(toast);
-    if (clickHandler) toast.querySelector('.toast-action').addEventListener('click', clickHandler);
-    setTimeout(() => toast.classList.add('show'), 100);
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => toast.remove(), 300);
-    }, 7000);
-  }
-
-  // ── Fallback mailto ─────────────────────────────────────────────
 
   function fallbackMailto() {
-    const data    = new FormData(form);
+    const data = new FormData(form);
     const subject = encodeURIComponent(data.get('subject') || 'Contact from Portfolio');
-    const body    = encodeURIComponent(
-      `Name: ${data.get('from_name')}\nEmail: ${data.get('from_email')}\n\nMessage:\n${data.get('message')}`
-    );
-    showToast(
-      'Having trouble? Click here to open your email client instead.',
-      'warning',
-      () => { window.location.href = `mailto:saran006va@gmail.com?subject=${subject}&body=${body}`; }
-    );
+    const body = encodeURIComponent(`Name: ${data.get('from_name')}\nEmail: ${data.get('from_email')}\n\nMessage:\n${data.get('message')}`);
+    window.location.href = `mailto:saran006va@gmail.com?subject=${subject}&body=${body}`;
   }
-
-  // ── Submit handler ──────────────────────────────────────────────
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // Validate all fields
     const fields = [...form.querySelectorAll('input, textarea')];
     const allValid = fields.map(validateField).every(Boolean);
-    if (!allValid) { showToast('Please fix the errors above.', 'error'); return; }
+    if (!allValid) return;
 
     setLoading(true);
 
     try {
-      const result = await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form);
-      console.log('EmailJS success:', result.status, result.text);
+      await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form);
       showSuccessToast();
       form.reset();
     } catch (err) {
-      console.error('EmailJS FULL error:', JSON.stringify(err), err?.status, err?.text);
-      if (err?.status === 400 || err?.status === 401) {
-        showToast('Email config error — please contact saran006va@gmail.com directly.', 'error');
-      } else {
-        fallbackMailto();
-      }
+      console.error('Email error:', err);
+      fallbackMailto();
     } finally {
       setLoading(false);
     }
   }
 
-  // ── Wire up events ──────────────────────────────────────────────
-
   form.addEventListener('submit', handleSubmit);
 
   form.querySelectorAll('input, textarea').forEach(field => {
-    field.addEventListener('blur',  () => validateField(field));
+    field.addEventListener('blur', () => validateField(field));
     field.addEventListener('input', () => clearFieldError(field));
   });
 }

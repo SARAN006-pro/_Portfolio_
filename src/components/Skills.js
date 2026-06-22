@@ -1,66 +1,72 @@
-const skillCards = [
+const skillCategories = [
   {
-    icon: '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>',
-    title: 'Programming Languages',
-    items: ['Python', 'Java', 'JavaScript']
+    name: 'Languages',
+    skills: ['Java', 'Python', 'SQL', 'JavaScript']
   },
   {
-    icon: '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line>',
-    title: 'Frontend',
-    items: ['React.js', 'HTML5', 'CSS3']
+    name: 'Backend & APIs',
+    skills: ['Spring Boot', 'FastAPI', 'REST APIs', 'Spring Data JPA', 'Bean Validation', 'Swagger/OpenAPI']
   },
   {
-    icon: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line>',
-    title: 'Backend',
-    items: ['Node.js', 'Express.js', 'RESTful APIs']
+    name: 'AI & ML',
+    skills: ['RAG Pipelines', 'LLM Integration', 'ChromaDB', 'Machine Learning', 'Deep Learning', 'AWS AI Services']
   },
   {
-    icon: '<ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>',
-    title: 'Databases',
-    items: ['MongoDB', 'PostgreSQL', 'MySQL']
+    name: 'Frontend',
+    skills: ['React.js', 'HTML/CSS', 'Electron', 'Responsive Design']
   },
   {
-    icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>',
-    title: 'ORM & Tools',
-    items: ['n8n', 'Prisma', 'JDBC']
+    name: 'Databases',
+    skills: ['MySQL','PostgreSQL', 'MongoDB', 'ChromaDB', 'Spring Data JPA', 'SQL Query Optimization']
   },
   {
-    icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>',
-    title: 'Authentication & Security',
-    items: ['JWT', 'OTP Verification', 'Password Hashing (bcrypt)']
-  },
-  {
-    icon: '<line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>',
-    title: 'Data & Analytics',
-    items: ['Power BI', 'Excel']
-  },
-  {
-    icon: '<circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line>',
-    title: 'Version Control',
-    items: ['Git', 'GitHub']
+    name: 'Cloud & DevOps',
+    skills: ['AWS (AI Practitioner)', 'Docker', 'Git', 'GitHub', 'Postman']
   }
 ];
 
-const bulletSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="skill-bullet"><circle cx="12" cy="12" r="3"/></svg>`;
+const categoryIcons = {
+  'Languages': '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>',
+  'Backend & APIs': '<circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m6-11h-6m-6 0h6"/><circle cx="12" cy="12" r="10"/>',
+  'AI & ML': '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>',
+  'Frontend': '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line>',
+  'Databases': '<ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>',
+  'Cloud & DevOps': '<path d="M12 2v3m0 14v3m9-9h-3M6 12H3m15.364 6.364l-2.121-2.121M8.757 8.757L6.636 6.636m12.728 0l-2.121 2.121M8.757 15.243l-2.121 2.121"/><circle cx="12" cy="12" r="4"/>'
+};
 
 export function renderSkills() {
-  const cards = skillCards.map(({ icon, title, items }) => `
-    <div class="skill-card">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="skill-card__icon">${icon}</svg>
-      <div class="skill-card__content">
-        <h3 class="skill-card__title">${title}</h3>
-        <ul class="skill-card__list">
-          ${items.map(item => `<li>${bulletSvg}${item}</li>`).join('')}
+  const categoryCards = skillCategories.map(cat => {
+    const icon = categoryIcons[cat.name] || categoryIcons['Languages'];
+    const skillItems = cat.skills.map(skill =>
+      `<li class="skill-item">${skill}</li>`
+    ).join('');
+
+    return `
+      <div class="skill-category">
+        <div class="skill-category-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="skill-category-icon">
+            ${icon}
+          </svg>
+          <h3 class="skill-category-name">${cat.name}</h3>
+        </div>
+        <ul class="skill-list">
+          ${skillItems}
         </ul>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
   return `
     <section id="skills" class="skills">
       <div class="container">
-        <h2 class="section-title">Technical Skills & Expertise</h2>
-        <div class="skills-grid">${cards}</div>
+        <header class="section-header">
+          <h2 class="section-heading">Skills & Expertise</h2>
+          <p class="section-subtitle">Technologies I use to build production-grade solutions</p>
+        </header>
+
+        <div class="skills-grid">
+          ${categoryCards}
+        </div>
       </div>
     </section>
   `;

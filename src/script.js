@@ -123,7 +123,6 @@ window.addEventListener('scroll', handleActiveNav);
 // Typing animation for hero subtitle
 const roles = [
     "Full Stack MERN Developer",
-    "AI Engineer",
     "MERN Specialist",
     "Data & Cloud Enthusiast"
 ];
