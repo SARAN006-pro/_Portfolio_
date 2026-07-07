@@ -14,12 +14,12 @@ export function renderHero() {
             </div>
 
             <h1 class="hero-title">
-              <span class="title-line">Building intelligent</span>
-              <span class="title-line title-highlight">backend systems</span>
+              <span class="title-line">Building full-stack</span>
+              <span class="title-line title-highlight">Java applications</span>
             </h1>
 
             <p class="hero-description">
-              I'm SARAN V A, a backend-focused developer specializing in  Spring Boot, Python, FastAPI, and GenAI integrations. I build production-ready APIs and intelligent applications - from RAG-powered document assistants to agentic AI backends.
+              I'm SARAN V A, a full-stack developer with a strong focus on Java and Spring Boot. I build production-grade web applications with clean architecture, from REST APIs to responsive frontends.
             </p>
 
             <div class="hero-cta">
@@ -53,13 +53,15 @@ export function renderHero() {
               <span class="tech-divider">•</span>
               <span class="tech-item">Spring Boot</span>
               <span class="tech-divider">•</span>
+                <span class="tech-item">React</span>
+                <span class="tech-divider">•</span>
+                <span class="tech-item">MongoDB</span>
+                <span class="tech-divider">•</span>
+                <span class="tech-item">MySQL</span>
+                <span class="tech-divider">•</span>
                 <span class="tech-item">Python</span>
                 <span class="tech-divider">•</span>
                 <span class="tech-item">FastAPI</span>
-                <span class="tech-divider">•</span>
-                <span class="tech-item">RAG/LLM</span>
-                <span class="tech-divider">•</span>
-                <span class="tech-item">React</span>
               </div>
             </div>
           </div>
@@ -67,7 +69,7 @@ export function renderHero() {
           <div class="hero-visual">
             <div class="profile-card">
               <div class="profile-image-wrapper">
-                <img src="/images/profile-photo.png" alt="SARAN V A - Backend Developer" class="profile-image"/>
+                <img src="/images/profile-photo.png" alt="SARAN V A - Full Stack Developer" class="profile-image"/>
               </div>
               <div class="profile-status">
                 <span class="status-dot"></span>

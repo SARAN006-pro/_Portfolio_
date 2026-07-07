@@ -20,7 +20,7 @@ export function renderContact() {
                 <img src="/images/profile-photo.png" alt="SARAN V A"/>
               </div>
               <h3 class="contact-name">SARAN V A</h3>
-              <p class="contact-role">Backend Developer & AI Engineer</p>
+              <p class="contact-role">Full Stack Java Developer</p>
 
               <div class="contact-links">
                 <a href="https://github.com/SARAN006-pro" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="GitHub">

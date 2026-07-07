@@ -3,25 +3,27 @@ const externalIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height=
 
 const projects = [
   {
-    title: 'Jumpstart – Learning Progress Tracker',
-    subtitle: 'Spring Boot REST API with JPA & Swagger',
+    title: 'Jumpstart - Learning Progress Tracker',
+    subtitle: 'Spring Boot REST API with JPA',
     problem: 'Developers learning new technologies had no structured way to track their progress across topics, roadmaps, and milestones.',
-    solution: 'Built a Spring Boot REST API using layered architecture (Controller → Service → Repository). Modelled a MySQL schema for users and topics using Spring Data JPA. Applied DTO-based request/response models with Bean Validation constraints. Documented all endpoints with Swagger/OpenAPI.',
-    impact: 'Production-ready Java backend demonstrating clean architecture, JPA relationships, and API documentation best practices — a direct showcase of Spring Boot proficiency.',
-    tech: ['Java', 'Spring Boot', 'Spring Data JPA', 'MySQL', 'Swagger/OpenAPI', 'Bean Validation'],
+    solution: 'Built a Spring Boot REST API using layered architecture (Controller > Service > Repository). Modelled a MySQL schema for users and topics using Spring Data JPA. Applied DTO-based request/response models with Bean Validation constraints.',
+    impact: 'Production-ready Java backend demonstrating clean architecture, JPA relationships, and API documentation best practices - a direct showcase of Spring Boot proficiency.',
+    tech: ['Java', 'Spring Boot', 'Spring Data JPA', 'MySQL', 'Bean Validation'],
     github: 'https://github.com/SARAN006-pro',
-    demo: '#',
+    demo: 'https://jumpstart.assist-ai.app',
+    image: '/images/jumpstart.png',
     color: 'blue'
   },
    {
-    title: 'Vaagai – Smart Farming Platform',
-    subtitle: 'ML-Powered Agricultural Guidance System',
+    title: 'Vaagai - Smart Farming Platform',
+    subtitle: 'Data-Driven Agricultural Guidance System',
     problem: 'Farmers lacked access to real-time, data-driven crop guidance tailored to their soil, climate, and regional conditions.',
-    solution: 'Built a FastAPI REST API that accepts farming inputs and returns ML-based crop recommendations. Designed MongoDB collections for farmer profiles and crop history, optimized for fast per-user retrieval. Implemented strict request validation to ensure only clean data reaches the prediction model.',
-    impact: 'Enables farmers to make data-driven decisions on crop selection. Full-stack platform with FastAPI backend, ML inference pipeline, and React frontend, deployed with Docker.',
-    tech: ['Python', 'FastAPI', 'MongoDB', 'Machine Learning', 'React', 'Docker'],
+    solution: 'Built a FastAPI REST API that accepts farming inputs and returns data-driven crop recommendations. Designed MongoDB collections for farmer profiles and crop history, optimized for fast per-user retrieval. Implemented strict request validation to ensure only clean data reaches the prediction endpoint.',
+    impact: 'Enables farmers to make data-driven decisions on crop selection. Full-stack platform with FastAPI backend, prediction pipeline, and React frontend, deployed with Docker.',
+    tech: ['Python', 'FastAPI', 'MongoDB', 'React', 'Docker'],
     github: 'https://github.com/SARAN006-pro',
-    demo: '#',
+    demo: 'https://vaagai.assist-ai.app',
+    image: '/images/vaagai.png',
     color: 'emerald'
   },
   {
@@ -29,19 +31,24 @@ const projects = [
     subtitle: 'Multi-Step Task Execution Backend',
     problem: 'Standard chatbot backends execute single-turn responses. Complex tasks require sequential planning, tool use, and dynamic execution across multiple steps.',
     solution: 'Built a FastAPI backend that decomposes a user task into sequential steps and executes tool handlers for each. Created endpoints for task submission and result retrieval with consistent JSON responses. Connected external APIs so the backend can call outside services as part of task execution.',
-    impact: 'Demonstrates agentic LLM architecture: task decomposition, tool routing, and multi-step execution — a pattern used in production AI systems.',
-    tech: ['Python', 'FastAPI', 'LLM Integration', 'REST APIs', 'Agentic Architecture'],
-    github: 'https://github.com/SARAN006-pro',
+    impact: 'Demonstrates modular backend architecture: task decomposition, tool routing, and multi-step execution - a pattern used in production systems.',
+    tech: ['Python', 'FastAPI', 'REST APIs', 'External API Integration'],
+    github: 'https://github.com/SARAN006-pro/Assist_Me.git',
     demo: '#',
+    image: '/images/project3.jpg',
     color: 'orange'
   }
 ];
 
 function renderProjectCard(project) {
   const techTags = project.tech.map(t => `<span class="project-tag">${t}</span>`).join('');
+  const imageBg = project.image
+    ? `<div class="project-image"><img src="${project.image}" alt="${project.title}" loading="lazy"/></div>`
+    : '';
 
   return `
     <article class="project-card">
+      ${imageBg}
       <div class="project-header">
         <div class="project-indicator project-indicator--${project.color}"></div>
         <div class="project-title-group">

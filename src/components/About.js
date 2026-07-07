@@ -4,21 +4,21 @@ export function renderAbout() {
       <div class="container">
         <header class="section-header">
           <h2 class="section-heading">About Me</h2>
-          <p class="section-subtitle">Backend Developer & AI Engineer</p>
+          <p class="section-subtitle">Full Stack Java Developer</p>
         </header>
 
         <div class="about-content">
           <div class="about-main">
             <div class="about-text">
-              <h3 class="about-title">Backend Developer Focused on Scalable Solutions</h3>
+              <h3 class="about-title">Full Stack Developer Focused on Java & Scalable Solutions</h3>
               <p class="about-paragraph">
-                I'm a pre-final year B.Tech Information Technology student at Rathinam Technical Campus, Coimbatore, passionate about building production-grade software that solves real problems. My expertise lies in Spring Boot, Python, FastAPI, and GenAI system design including RAG pipelines and LLM integrations.
+                I'm a pre-final year B.Tech Information Technology student at Rathinam Technical Campus, Coimbatore, passionate about building production-grade software that solves real problems. My expertise lies in Java, Spring Boot, React, and building end-to-end applications with clean, maintainable architecture.
               </p>
               <p class="about-paragraph">
-                I've built projects across domains -  From a Spring Boot learning tracker with full JPA and Swagger documentation, to a smart farming platform with ML crop prediction. Each project is designed with clean architecture, real-world constraints, and production thinking.
+                I've built projects across domains - from a Spring Boot learning tracker with full JPA to an agentic AI assistant backend. Each project is designed with clean architecture, real-world constraints, and production thinking.
               </p>
               <p class="about-paragraph">
-                I hold an AWS Certified AI Practitioner certification (2026) and a Google AI Essentials certification. I'm actively seeking Backend SDE, ML Engineer, and Full Stack internships, where I can contribute to production systems alongside experienced engineers.
+                I hold an AWS Certified AI Practitioner certification (2026). I'm actively seeking Full Stack and SDE internships where I can contribute to production systems alongside experienced engineers.
               </p>
             </div>
 
@@ -32,33 +32,13 @@ export function renderAbout() {
                 <span class="detail-label">Graduation Year</span>
               </div>
               <div class="detail-card">
-                <span class="detail-value">AWS</span>
-                <span class="detail-label">AI Practitioner</span>
+                <span class="detail-value">Java</span>
+                <span class="detail-label">Primary Stack</span>
               </div>
             </div>
           </div>
 
           <aside class="about-sidebar">
-            <div class="experience-timeline">
-              <h4 class="sidebar-title">Experience</h4>
-              <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <span class="timeline-role">AI/ML Intern</span>
-                  <span class="timeline-company">Novi Tech</span>
-                  <span class="timeline-period">2025</span>
-                </div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                  <span class="timeline-role">Backend Developer</span>
-                  <span class="timeline-company">Freelance Projects</span>
-                  <span class="timeline-period">2026 - Present</span>
-                </div>
-              </div>
-            </div>
-
             <div class="education-section">
               <h4 class="sidebar-title">Education</h4>
               <div class="education-item">

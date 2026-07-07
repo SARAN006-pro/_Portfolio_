@@ -1,6 +1,8 @@
 /**
- * PortfolioLoader — Engaging animated loading experience
- * Clean, professional, with subtle interactivity
+ * PortfolioLoader — Cinematic title sequence
+ * Name zooms in (slow), tagline types beneath.
+ * After a pause, name fades out — tagline lingers alone for a moment,
+ * then dissolves into the portfolio.
  */
 
 (function () {
@@ -27,45 +29,80 @@
       }
 
       @keyframes pfl-dissolve {
-        from { opacity: 1; transform: scale(1); }
-        to { opacity: 0; transform: scale(1.02); filter: blur(8px); }
+        from { opacity: 1; transform: scale(1); filter: blur(0); }
+        to { opacity: 0; transform: scale(1.03); filter: blur(8px); }
       }
 
       .pfl-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 40px;
+        gap: 32px;
+        position: relative;
+        z-index: 2;
       }
 
-      /* Animated logo mark */
+      /* ── Particles ── */
+      #pfl-particles {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      /* ── Logo ── */
       .pfl-logo {
         position: relative;
-        width: 80px;
-        height: 80px;
+        width: 64px;
+        height: 64px;
+        opacity: 0;
+      }
+
+      .pfl-logo.pfl-visible {
+        animation: pfl-logo-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      @keyframes pfl-logo-in {
+        0% { opacity: 0; transform: scale(0.3) rotate(-25deg); }
+        100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
       }
 
       .pfl-logo-ring {
         position: absolute;
         inset: 0;
-        border: 2px solid rgba(59, 130, 246, 0.3);
+        border: 1.5px solid rgba(59, 130, 246, 0.2);
         border-radius: 50%;
-        animation: pfl-ring-pulse 2s ease-in-out infinite;
+        animation: pfl-ring-spin 4s linear infinite;
       }
 
       .pfl-logo-ring:nth-child(2) {
         inset: 8px;
-        animation-delay: 0.2s;
+        animation-duration: 3s;
+        animation-direction: reverse;
+        border-color: rgba(59, 130, 246, 0.3);
       }
 
       .pfl-logo-ring:nth-child(3) {
         inset: 16px;
-        animation-delay: 0.4s;
+        animation-duration: 2.5s;
+        border-color: rgba(59, 130, 246, 0.4);
       }
 
-      @keyframes pfl-ring-pulse {
-        0%, 100% { opacity: 0.3; transform: scale(1); }
-        50% { opacity: 0.8; transform: scale(1.05); }
+      @keyframes pfl-ring-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .pfl-logo-ring::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        background: #3b82f6;
+        border-radius: 50%;
+        transform: translateX(-50%);
       }
 
       .pfl-logo-core {
@@ -75,75 +112,135 @@
         transform: translate(-50%, -50%);
         width: 12px;
         height: 12px;
-        background: #3b82f6;
+        background: linear-gradient(135deg, #3b82f6, #60a5fa);
         border-radius: 50%;
         box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
-        animation: pfl-core-glow 1.5s ease-in-out infinite;
+        animation: pfl-core-pulse 2s ease-in-out infinite;
       }
 
-      @keyframes pfl-core-glow {
-        0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
-        50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.9), 0 0 50px rgba(59, 130, 246, 0.4); }
+      @keyframes pfl-core-pulse {
+        0%, 100% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); transform: translate(-50%, -50%) scale(1); }
+        50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 50px rgba(59, 130, 246, 0.3); transform: translate(-50%, -50%) scale(1.15); }
       }
 
-      /* Name with staggered reveal */
+      /* ── Name — slow cinematic zoom-in ── */
       .pfl-name {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: clamp(36px, 7vw, 64px);
+        font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+        font-size: clamp(44px, 9vw, 80px);
         font-weight: 800;
-        color: #ffffff;
         letter-spacing: -0.03em;
         display: flex;
         gap: 0;
+        filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.15));
       }
 
       .pfl-char {
-        opacity: 0;
-        transform: translateY(20px);
         display: inline-block;
-      }
-
-      .pfl-char.pfl-visible {
-        animation: pfl-char-reveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      }
-
-      @keyframes pfl-char-reveal {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        opacity: 0;
       }
 
       .pfl-char-space {
-        width: 0.15em;
+        width: 0.2em;
       }
 
-      /* Tagline with typewriter effect */
+      .pfl-char.pfl-zoom-in {
+        animation: pfl-zoom-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      @keyframes pfl-zoom-in {
+        0% { opacity: 0; transform: scale(2.5); filter: blur(14px); }
+        60% { opacity: 1; filter: blur(0); }
+        80% { transform: scale(0.95); }
+        100% { opacity: 1; transform: scale(1); filter: blur(0); }
+      }
+
+      .pfl-char.pfl-glow {
+        animation: pfl-glow-flash 0.5s ease forwards;
+      }
+
+      @keyframes pfl-glow-flash {
+        0% { filter: brightness(1.8) drop-shadow(0 0 25px rgba(96, 165, 250, 0.9)); }
+        100% { filter: brightness(1) drop-shadow(0 0 0 transparent); }
+      }
+
+      /* Name fade-out — letters blur and shrink away */
+      .pfl-char.pfl-fade-out {
+        animation: pfl-fade-out 0.6s ease-in forwards;
+      }
+
+      @keyframes pfl-fade-out {
+        0% { opacity: 1; transform: scale(1); filter: blur(0); }
+        100% { opacity: 0; transform: scale(1.3); filter: blur(8px); }
+      }
+
+      /* ── Tagline ── */
       .pfl-tagline {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: clamp(11px, 1.3vw, 14px);
-        letter-spacing: 0.25em;
+        font-family: 'Chivo', 'Plus Jakarta Sans', sans-serif;
+        font-size: clamp(12px, 1.3vw, 15px);
+        letter-spacing: 0.3em;
         text-transform: uppercase;
         color: #71717a;
-        overflow: hidden;
+        min-height: 1.4em;
         display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      .pfl-tagline span {
+      .pfl-tagline-char {
         opacity: 0;
+        display: inline-block;
+      }
+
+      .pfl-tagline-char.pfl-typed {
+        animation: pfl-type-in 0.12s ease forwards;
+      }
+
+      @keyframes pfl-type-in {
+        from { opacity: 0; transform: translateY(4px) scale(0.9); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      .pfl-tagline-char.pfl-space {
+        width: 0.35em;
+      }
+
+      .pfl-tagline-cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        background: #3b82f6;
+        margin-left: 3px;
+        animation: pfl-cursor-blink 0.7s step-end infinite;
+        vertical-align: text-bottom;
+        opacity: 0;
+      }
+
+      .pfl-tagline-cursor.pfl-visible {
+        opacity: 1;
+      }
+
+      @keyframes pfl-cursor-blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      /* ── Progress ── */
+      .pfl-progress {
+        width: 120px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 2px;
+        overflow: hidden;
+        opacity: 0;
+      }
+
+      .pfl-progress.pfl-visible {
         animation: pfl-fade-in 0.3s ease forwards;
       }
 
       @keyframes pfl-fade-in {
-        from { opacity: 0; transform: translateY(8px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      /* Progress line */
-      .pfl-progress {
-        width: 120px;
-        height: 2px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
-        overflow: hidden;
+        from { opacity: 0; }
+        to { opacity: 1; }
       }
 
       .pfl-progress-bar {
@@ -151,40 +248,80 @@
         width: 0;
         background: linear-gradient(90deg, #3b82f6, #60a5fa);
         border-radius: 2px;
-        animation: pfl-progress 1.2s ease forwards;
+        animation: pfl-progress 0.8s ease forwards;
       }
 
       @keyframes pfl-progress {
         from { width: 0; }
         to { width: 100%; }
       }
-
-      /* Subtle corner decorations */
-      .pfl-corner {
-        position: absolute;
-        width: 60px;
-        height: 60px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        opacity: 0;
-        animation: pfl-corner-fade 0.8s ease forwards;
-      }
-
-      .pfl-corner-tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
-      .pfl-corner-tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
-      .pfl-corner-bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
-      .pfl-corner-br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
-
-      @keyframes pfl-corner-fade {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      .pfl-corner:nth-child(1) { animation-delay: 0s; }
-      .pfl-corner:nth-child(2) { animation-delay: 0.1s; }
-      .pfl-corner:nth-child(3) { animation-delay: 0.2s; }
-      .pfl-corner:nth-child(4) { animation-delay: 0.3s; }
     `;
     document.head.appendChild(style);
+  }
+
+  function createParticles(root) {
+    const canvas = document.createElement('canvas');
+    canvas.id = 'pfl-particles';
+    root.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+
+    function createParticle() {
+      return {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 2 + 1,
+        alpha: Math.random() * 0.3 + 0.05
+      };
+    }
+
+    function init() {
+      resize();
+      particles = Array.from({ length: 40 }, createParticle);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h;
+        if (p.y > h) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(96, 165, 250, ${p.alpha})`;
+        ctx.fill();
+      });
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 80) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(96, 165, 250, ${0.04 * (1 - dist / 80)})`;
+            ctx.stroke();
+          }
+        }
+      }
+      if (root.isConnected) requestAnimationFrame(draw);
+    }
+
+    init();
+    window.addEventListener('resize', resize);
+    draw();
   }
 
   function buildLoader() {
@@ -193,19 +330,12 @@
     root.setAttribute('role', 'status');
     root.setAttribute('aria-label', 'Loading portfolio');
 
-    // Corner decorations
-    ['tl', 'tr', 'bl', 'br'].forEach(pos => {
-      const corner = document.createElement('div');
-      corner.className = `pfl-corner pfl-corner-${pos}`;
-      root.appendChild(corner);
-    });
-
     const container = document.createElement('div');
     container.className = 'pfl-container';
 
-    // Logo with animated rings
     const logo = document.createElement('div');
     logo.className = 'pfl-logo';
+    logo.id = 'pfl-logo';
     logo.innerHTML = `
       <div class="pfl-logo-ring"></div>
       <div class="pfl-logo-ring"></div>
@@ -213,11 +343,10 @@
       <div class="pfl-logo-core"></div>
     `;
 
-    // Name with individual characters
     const nameEl = document.createElement('div');
     nameEl.className = 'pfl-name';
-    const chars = NAME.split('');
-    chars.forEach((char, i) => {
+    nameEl.id = 'pfl-name';
+    NAME.split('').forEach((char) => {
       if (char === ' ') {
         const space = document.createElement('span');
         space.className = 'pfl-char pfl-char-space';
@@ -230,20 +359,23 @@
       }
     });
 
-    // Tagline
     const tagline = document.createElement('div');
     tagline.className = 'pfl-tagline';
-    const taglineText = 'Backend Developer & AI Engineer';
-    taglineText.split('').forEach((char, i) => {
+    tagline.id = 'pfl-tagline';
+    const TAGLINE_TEXT = 'Full Stack Java Developer';
+    TAGLINE_TEXT.split('').forEach((char) => {
       const span = document.createElement('span');
-      span.textContent = char === ' ' ? ' ' : char;
-      span.style.animationDelay = `${0.8 + i * 0.03}s`;
+      span.className = 'pfl-tagline-char' + (char === ' ' ? ' pfl-space' : '');
+      span.textContent = char === ' ' ? ' ' : char;
       tagline.appendChild(span);
     });
+    const cursor = document.createElement('span');
+    cursor.className = 'pfl-tagline-cursor';
+    tagline.appendChild(cursor);
 
-    // Progress bar
     const progress = document.createElement('div');
     progress.className = 'pfl-progress';
+    progress.id = 'pfl-progress';
     progress.innerHTML = '<div class="pfl-progress-bar"></div>';
 
     container.appendChild(logo);
@@ -252,25 +384,56 @@
     container.appendChild(progress);
     root.appendChild(container);
 
-    return { root, nameEl, tagline };
+    return { root, nameEl, tagline, progress, logo };
   }
 
   function runLoader() {
     injectStyles();
-    const { root, nameEl, tagline } = buildLoader();
+    const { root, nameEl, tagline, progress, logo } = buildLoader();
     document.body.prepend(root);
 
-    const chars = nameEl.querySelectorAll('.pfl-char');
+    createParticles(root);
+
+    const allChars = [...nameEl.querySelectorAll('.pfl-char')];
+    const taglineChars = [...tagline.querySelectorAll('.pfl-tagline-char')];
+    const cursor = tagline.querySelector('.pfl-tagline-cursor');
     const t = (fn, ms) => setTimeout(fn, ms);
 
-    // Animate name characters with stagger
-    chars.forEach((char, i) => {
-      t(() => char.classList.add('pfl-visible'), 300 + i * 60);
+    // ── Phase 1: Logo drifts in ──
+    t(() => logo.classList.add('pfl-visible'), 200);
+
+    // ── Phase 2: Name zoom-in (slow) + tagline types simultaneously ──
+    const syncStart = 700;
+    allChars.forEach((char, i) => {
+      t(() => char.classList.add('pfl-zoom-in'), syncStart + i * 90);
+      t(() => char.classList.add('pfl-glow'), syncStart + i * 90 + 600);
     });
 
-    // Dissolve and remove
-    t(() => root.classList.add('pfl-dissolving'), 1800);
-    t(() => root.remove(), 2400);
+    taglineChars.forEach((char, i) => {
+      t(() => char.classList.add('pfl-typed'), syncStart + i * 35);
+    });
+
+    t(() => cursor.classList.add('pfl-visible'), syncStart);
+
+    const nameFullyIn = syncStart + allChars.length * 90 + 700;
+
+    // ── Phase 3: Name lingers for a moment (readable) ──
+    // Then fade name OUT while tagline stays
+    const nameFadeStart = nameFullyIn + 1200;
+    allChars.forEach((char, i) => {
+      t(() => {
+        char.classList.remove('pfl-zoom-in', 'pfl-glow');
+        char.classList.add('pfl-fade-out');
+      }, nameFadeStart + i * 50);
+    });
+
+    const nameGone = nameFadeStart + allChars.length * 50 + 600;
+
+    // ── Phase 4: Dissolve quickly after name is gone ──
+    t(() => progress.classList.add('pfl-visible'), nameGone + 200);
+
+    t(() => root.classList.add('pfl-dissolving'), nameGone + 600);
+    t(() => root.remove(), nameGone + 1200);
   }
 
   if (document.readyState === 'loading') {
