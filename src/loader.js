@@ -362,7 +362,7 @@
     const tagline = document.createElement('div');
     tagline.className = 'pfl-tagline';
     tagline.id = 'pfl-tagline';
-    const TAGLINE_TEXT = 'Full Stack Java Developer';
+    const TAGLINE_TEXT = 'Full Stack Developer';
     TAGLINE_TEXT.split('').forEach((char) => {
       const span = document.createElement('span');
       span.className = 'pfl-tagline-char' + (char === ' ' ? ' pfl-space' : '');

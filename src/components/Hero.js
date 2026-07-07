@@ -15,11 +15,11 @@ export function renderHero() {
 
             <h1 class="hero-title">
               <span class="title-line">Building full-stack</span>
-              <span class="title-line title-highlight">Java applications</span>
+              <span class="title-line title-highlight">applications</span>
             </h1>
 
             <p class="hero-description">
-              I'm SARAN V A, a full-stack developer with a strong focus on Java and Spring Boot. I build production-grade web applications with clean architecture, from REST APIs to responsive frontends.
+              I'm SARAN V A, a full-stack developer who builds production-grade web applications with clean architecture, from REST APIs to responsive frontends.
             </p>
 
             <div class="hero-cta">
@@ -50,6 +50,8 @@ export function renderHero() {
               <span class="tech-label">Tech I work with</span>
               <div class="tech-stack">
               <span class="tech-item">Java</span>
+              <span class="tech-divider">•</span>
+              <span class="tech-item">DSA</span>
               <span class="tech-divider">•</span>
               <span class="tech-item">Spring Boot</span>
               <span class="tech-divider">•</span>
