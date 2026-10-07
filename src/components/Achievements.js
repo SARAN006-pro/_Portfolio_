@@ -19,11 +19,11 @@ const achievements = [
   },
   {
     icon: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
-    image: null,
+    image: '/certificates/cert1.png',
     imageAlt: 'DSA using Java Certificate',
     title: 'DSA using Java',
     description: 'GUVI<br/>Data Structures and Algorithms with Java — arrays, linked lists, trees, graphs, sorting, and problem-solving techniques for technical interviews.',
-    link: '#',
+    link: '/certificates/cert1.png',
     linkText: 'View Certificate'
   },
   {

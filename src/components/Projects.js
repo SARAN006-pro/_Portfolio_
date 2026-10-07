@@ -9,22 +9,33 @@ const projects = [
     solution: 'Built a Spring Boot REST API using layered architecture (Controller > Service > Repository). Modelled a MySQL schema for users and topics using Spring Data JPA. Applied DTO-based request/response models with Bean Validation constraints.',
     impact: 'Production-ready Java backend demonstrating clean architecture, JPA relationships, and API documentation best practices - a direct showcase of Spring Boot proficiency.',
     tech: ['Java', 'Spring Boot', 'Spring Data JPA', 'MySQL', 'Bean Validation'],
-    github: 'https://github.com/SARAN006-pro',
+    github: 'https://github.com/SARAN006-pro/Jumpstart.git',
     demo: 'https://jumpstart.assist-ai.app',
     image: '/images/jumpstart.png',
     color: 'blue'
   },
-   {
+  {
     title: 'Vaagai - Smart Farming Platform',
     subtitle: 'Data-Driven Agricultural Guidance System',
     problem: 'Farmers lacked access to real-time, data-driven crop guidance tailored to their soil, climate, and regional conditions.',
     solution: 'Built a FastAPI REST API that accepts farming inputs and returns data-driven crop recommendations. Designed MongoDB collections for farmer profiles and crop history, optimized for fast per-user retrieval. Implemented strict request validation to ensure only clean data reaches the prediction endpoint.',
     impact: 'Enables farmers to make data-driven decisions on crop selection. Full-stack platform with FastAPI backend, prediction pipeline, and React frontend, deployed with Docker.',
     tech: ['Python', 'FastAPI', 'MongoDB', 'React', 'Docker'],
-    github: 'https://github.com/SARAN006-pro',
+    github: 'https://github.com/SARAN006-pro/SmartFarm.git',
     demo: 'https://vaagai.assist-ai.app',
     image: '/images/vaagai.png',
     color: 'emerald'
+  },
+  {
+    title: 'Blood Bank Management System',
+    subtitle: 'Spring Boot REST API with MySQL',
+    problem: 'Manual blood bank tracking risks fatal errors through expired blood units or concurrent double-allocation during emergency hospital requests.',
+    solution: 'Designed a normalized MySQL schema tracking each blood unit with expiry dates and integrity constraints. Built Spring Boot REST APIs with role-based access (Admin, Staff, Donor, Hospital) using JWT authentication.',
+    impact: 'Implemented transactional blood issuing with row-level locking to prevent double-issue and expired-unit use, guaranteeing strict data consistency and patient safety.',
+    tech: ['Java', 'Spring Boot', 'MySQL', 'JWT Auth', 'REST APIs', 'Spring Data JPA'],
+    github: 'https://github.com/SARAN006-pro/Blood-Bank-Management-System.git',
+    image: '/images/bloodbank.png',
+    color: 'rose'
   },
   {
     title: 'Agentic AI Assistant',
@@ -33,9 +44,8 @@ const projects = [
     solution: 'Built a FastAPI backend that decomposes a user task into sequential steps and executes tool handlers for each. Created endpoints for task submission and result retrieval with consistent JSON responses. Connected external APIs so the backend can call outside services as part of task execution.',
     impact: 'Demonstrates modular backend architecture: task decomposition, tool routing, and multi-step execution - a pattern used in production systems.',
     tech: ['Python', 'FastAPI', 'REST APIs', 'External API Integration'],
-    github: 'https://github.com/SARAN006-pro/Assist_Me.git',
-    demo: '#',
-    image: '/images/project3.jpg',
+    github: 'https://github.com/SARAN006-pro/Saturday.git',
+    image: '/images/agent_ai.png',
     color: 'orange'
   }
 ];
@@ -46,17 +56,20 @@ function renderProjectCard(project) {
     ? `<div class="project-image"><img src="${project.image}" alt="${project.title}" loading="lazy"/></div>`
     : '';
 
-  return `
-    <article class="project-card">
-      ${imageBg}
-      <div class="project-header">
-        <div class="project-indicator project-indicator--${project.color}"></div>
-        <div class="project-title-group">
-          <h3 class="project-title">${project.title}</h3>
-          <span class="project-subtitle">${project.subtitle}</span>
-        </div>
+  const contentHtml = project.bullets && project.bullets.length
+    ? `
+      <div class="project-content">
+        <ul class="project-bullets">
+          ${project.bullets.map(b => `
+            <li class="project-bullet">
+              <span class="project-bullet-dot"></span>
+              <p class="project-text">${b}</p>
+            </li>
+          `).join('')}
+        </ul>
       </div>
-
+    `
+    : `
       <div class="project-content">
         <div class="project-section">
           <h4 class="project-section-title">
@@ -82,6 +95,29 @@ function renderProjectCard(project) {
           <p class="project-text">${project.impact}</p>
         </div>
       </div>
+    `;
+
+  const demoLinkHtml = project.demo && project.demo !== '#'
+    ? `
+      <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="project-link project-link--primary">
+        ${externalIcon}
+        <span>Demo</span>
+      </a>
+    `
+    : '';
+
+  return `
+    <article class="project-card">
+      ${imageBg}
+      <div class="project-header">
+        <div class="project-indicator project-indicator--${project.color}"></div>
+        <div class="project-title-group">
+          <h3 class="project-title">${project.title}</h3>
+          <span class="project-subtitle">${project.subtitle}</span>
+        </div>
+      </div>
+
+      ${contentHtml}
 
       <div class="project-footer">
         <div class="project-tags">${techTags}</div>
@@ -90,10 +126,7 @@ function renderProjectCard(project) {
             ${githubIcon}
             <span>Code</span>
           </a>
-          <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="project-link project-link--primary">
-            ${externalIcon}
-            <span>Demo</span>
-          </a>
+          ${demoLinkHtml}
         </div>
       </div>
     </article>

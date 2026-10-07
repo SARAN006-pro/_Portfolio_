@@ -10,7 +10,7 @@ export function renderHero() {
           <div class="hero-content">
             <div class="hero-badge">
               <span class="badge-dot"></span>
-              <span>Pre-Final Year • B.Tech IT</span>
+              <span>Final Year • B.Tech IT</span>
             </div>
 
             <h1 class="hero-title">

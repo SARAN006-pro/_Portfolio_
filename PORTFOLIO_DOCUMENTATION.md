@@ -127,7 +127,7 @@ My_Portfolio/
 **File:** `src/components/Hero.js`
 
 **What it contains:**
-- Badge showing "Pre-Final Year • B.Tech IT"
+- Badge showing "Final Year • B.Tech IT"
 - Main title with gradient highlight
 - Description paragraph about the developer
 - Call-to-action buttons (View Projects, GitHub, Contact)
@@ -137,7 +137,7 @@ My_Portfolio/
 **Key Elements:**
 ```javascript
 // Badge text
-<span>Pre-Final Year • B.Tech IT</span>
+<span>Final Year • B.Tech IT</span>
 
 // Main title
 <h1 class="hero-title">
@@ -193,7 +193,7 @@ My_Portfolio/
 ```javascript
 // About paragraphs - UPDATE YOUR STORY HERE
 <p class="about-paragraph">
-  I'm a pre-final year B.Tech IT student at Chennai Institute of Technology,
+  I'm a final year B.Tech IT student at Chennai Institute of Technology,
   passionate about building production-grade software that solves real problems.
   My expertise lies in <strong>Python</strong>, <strong>FastAPI</strong>, and
   <strong>AI/ML integrations</strong>.

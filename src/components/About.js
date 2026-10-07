@@ -12,10 +12,10 @@ export function renderAbout() {
             <div class="about-text">
               <h3 class="about-title">Full Stack Developer Focused on Scalable Solutions</h3>
               <p class="about-paragraph">
-                I'm a pre-final year B.Tech Information Technology student at Rathinam Technical Campus, Coimbatore, passionate about building production-grade software that solves real problems. I build end-to-end applications with clean, maintainable architecture and strong problem-solving skills rooted in data structures and algorithms.
+                I'm a final year B.Tech Information Technology student at Rathinam Technical Campus, Coimbatore, passionate about building production-grade software that solves real problems. I build end-to-end applications with clean, maintainable architecture and strong problem-solving skills rooted in data structures and algorithms.
               </p>
               <p class="about-paragraph">
-                I've built projects across domains - from a Spring Boot learning tracker to an assistant backend. Each project is designed with clean architecture, real-world constraints, and production thinking.
+                I've built projects across domains - from Spring Boot systems (Blood Bank & Learning Tracker) to agentic AI task execution backends and smart agriculture platforms. Each project is designed with clean architecture, real-world constraints, and production thinking.
               </p>
               <p class="about-paragraph">
                 I hold an AWS Certified AI Practitioner certification (2026). I'm actively seeking Full Stack and SDE internships where I can contribute to production systems alongside experienced engineers.
