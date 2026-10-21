@@ -3,6 +3,7 @@ const externalIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height=
 
 const projects = [
   {
+    name: 'Jumpstart',
     title: 'Jumpstart - Learning Progress Tracker',
     subtitle: 'Spring Boot REST API with JPA',
     problem: 'Developers learning new technologies had no structured way to track their progress across topics, roadmaps, and milestones.',
@@ -15,6 +16,7 @@ const projects = [
     color: 'blue'
   },
   {
+    name: 'Vaagai',
     title: 'Vaagai - Smart Farming Platform',
     subtitle: 'Data-Driven Agricultural Guidance System',
     problem: 'Farmers lacked access to real-time, data-driven crop guidance tailored to their soil, climate, and regional conditions.',
@@ -27,34 +29,69 @@ const projects = [
     color: 'emerald'
   },
   {
-    title: 'Blood Bank Management System',
+    name: 'Blood Line',
+    title: 'Blood Line - Blood Bank Management System',
     subtitle: 'Spring Boot REST API with MySQL',
     problem: 'Manual blood bank tracking risks fatal errors through expired blood units or concurrent double-allocation during emergency hospital requests.',
     solution: 'Designed a normalized MySQL schema tracking each blood unit with expiry dates and integrity constraints. Built Spring Boot REST APIs with role-based access (Admin, Staff, Donor, Hospital) using JWT authentication.',
     impact: 'Implemented transactional blood issuing with row-level locking to prevent double-issue and expired-unit use, guaranteeing strict data consistency and patient safety.',
     tech: ['Java', 'Spring Boot', 'MySQL', 'JWT Auth', 'REST APIs', 'Spring Data JPA'],
     github: 'https://github.com/SARAN006-pro/Blood-Bank-Management-System.git',
-    image: '/images/bloodbank.png',
+    demo: 'https://bloodline.assist_ai.app',
+    image: '/images/bloodline.png',
     color: 'rose'
   },
   {
-    title: 'Agentic AI Assistant',
+    name: 'Saturday',
+    title: 'Saturday - Agentic AI Assistant',
     subtitle: 'Multi-Step Task Execution Backend',
     problem: 'Standard chatbot backends execute single-turn responses. Complex tasks require sequential planning, tool use, and dynamic execution across multiple steps.',
     solution: 'Built a FastAPI backend that decomposes a user task into sequential steps and executes tool handlers for each. Created endpoints for task submission and result retrieval with consistent JSON responses. Connected external APIs so the backend can call outside services as part of task execution.',
     impact: 'Demonstrates modular backend architecture: task decomposition, tool routing, and multi-step execution - a pattern used in production systems.',
     tech: ['Python', 'FastAPI', 'REST APIs', 'External API Integration'],
     github: 'https://github.com/SARAN006-pro/Saturday.git',
-    image: '/images/agent_ai.png',
+    demo: 'https://saturday.assist_ai.app',
+    image: '/images/saturday.png',
     color: 'orange'
   }
 ];
 
 function renderProjectCard(project) {
   const techTags = project.tech.map(t => `<span class="project-tag">${t}</span>`).join('');
-  const imageBg = project.image
-    ? `<div class="project-image"><img src="${project.image}" alt="${project.title}" loading="lazy"/></div>`
+  const projectName = project.name || project.title.split(' - ')[0];
+
+  const demoLinkHtml = project.demo && project.demo !== '#'
+    ? `
+      <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="project-link project-link--primary" title="${project.demo}">
+        ${externalIcon}
+        <span>Live Demo</span>
+      </a>
+    `
     : '';
+
+  const leftColumnHtml = `
+    <div class="project-card__left">
+      <div class="project-image-wrapper">
+        <div class="project-image">
+          <img src="${project.image}" alt="${projectName}" title="${projectName}" loading="lazy"/>
+          <div class="project-image-overlay">
+            <div class="project-image-badge">
+              <span class="project-badge-dot project-badge-dot--${project.color}"></span>
+              <span class="project-badge-name">${projectName}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-links project-links--left">
+        <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="project-link" title="View Source Code">
+          ${githubIcon}
+          <span>Code</span>
+        </a>
+        ${demoLinkHtml}
+      </div>
+    </div>
+  `;
 
   const contentHtml = project.bullets && project.bullets.length
     ? `
@@ -71,63 +108,51 @@ function renderProjectCard(project) {
     `
     : `
       <div class="project-content">
-        <div class="project-section">
-          <h4 class="project-section-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            Problem
-          </h4>
-          <p class="project-text">${project.problem}</p>
-        </div>
+        <div class="project-sections-grid">
+          <div class="project-section project-section--problem">
+            <h4 class="project-section-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Problem
+            </h4>
+            <p class="project-text">${project.problem}</p>
+          </div>
 
-        <div class="project-section">
-          <h4 class="project-section-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Solution
-          </h4>
-          <p class="project-text">${project.solution}</p>
-        </div>
+          <div class="project-section project-section--solution">
+            <h4 class="project-section-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Solution
+            </h4>
+            <p class="project-text">${project.solution}</p>
+          </div>
 
-        <div class="project-section">
-          <h4 class="project-section-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            Impact
-          </h4>
-          <p class="project-text">${project.impact}</p>
+          <div class="project-section project-section--impact">
+            <h4 class="project-section-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Impact
+            </h4>
+            <p class="project-text">${project.impact}</p>
+          </div>
         </div>
       </div>
     `;
 
-  const demoLinkHtml = project.demo && project.demo !== '#'
-    ? `
-      <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="project-link project-link--primary">
-        ${externalIcon}
-        <span>Demo</span>
-      </a>
-    `
-    : '';
-
   return `
-    <article class="project-card">
-      ${imageBg}
-      <div class="project-header">
-        <div class="project-indicator project-indicator--${project.color}"></div>
-        <div class="project-title-group">
-          <h3 class="project-title">${project.title}</h3>
-          <span class="project-subtitle">${project.subtitle}</span>
-        </div>
-      </div>
+    <article class="project-card project-card--${project.color}">
+      ${leftColumnHtml}
+      <div class="project-card__body">
+        <header class="project-header">
+          <div class="project-indicator project-indicator--${project.color}"></div>
+          <div class="project-title-group">
+            <h3 class="project-title">${project.title}</h3>
+            <span class="project-subtitle">${project.subtitle}</span>
+          </div>
+        </header>
 
-      ${contentHtml}
+        ${contentHtml}
 
-      <div class="project-footer">
-        <div class="project-tags">${techTags}</div>
-        <div class="project-links">
-          <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="project-link">
-            ${githubIcon}
-            <span>Code</span>
-          </a>
-          ${demoLinkHtml}
-        </div>
+        <footer class="project-footer">
+          <div class="project-tags">${techTags}</div>
+        </footer>
       </div>
     </article>
   `;
